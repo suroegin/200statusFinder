@@ -30,7 +30,7 @@ def check_process(list_, file_):
 
 files = os.listdir(TXT_FILES_DIR)
 for file_ in files:
-    list_ = get_list_from_obj(file_)
+    list_ = get_list_from_obj(TXT_FILES_DIR + file_)
     with open("/root/Yandex.Disk/Research/{0}_free_names_from_file_{1}.txt".format(domain, file_), "w") as f:
         f.write("Free names for {0}\nFile: {1}\n\n".format(domain, file_))
     check_process(list_, file_)
