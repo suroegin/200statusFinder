@@ -1,5 +1,6 @@
-# 200statusFinder
+# 200-status-finder
 
 ### What it do?
-Application which checks the link's status (200 or any).
-If status is 200 - nickname/login is free for registration.
+
+This small CLI-application checks URL addresses for 200 status code.
+If status code is 200, login is free for registration.
