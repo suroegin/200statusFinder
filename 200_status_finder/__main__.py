@@ -1,5 +1,5 @@
 from random import randint
-from sys import argv, stdout
+from sys import argv
 from time import sleep, time
 
 from requests import get
@@ -23,7 +23,9 @@ def is_full_url(url: str) -> bool:
             print("[helpers:is_full_url] This URL is full, with schema.")
         return True
     if VERBOSE:
-            print("[helpers:is_full_url] This URL is not full, just domain name.")
+        print(
+            "[helpers:is_full_url] This URL is not full, just domain name."
+        )
     return False
 
 
@@ -39,7 +41,7 @@ else:
 with open(file_path) as openfile:
     words = [
         word.strip()
-        for word in openfile.readlines() 
+        for word in openfile.readlines()
         if word.strip()
     ]
     if VERBOSE:
@@ -56,14 +58,16 @@ for idx, word in enumerate(words, 1):
 
     if len(word) > MAX_WORD_LENGTH:
         MAX_WORD_LENGTH = len(word)
-    
+
     start_time = time()
     try:
         if VERBOSE:
-            print(f"[__main__] Making request to the URL address: {url + word}")
+            print(
+                f"[__main__] Making request to the URL address: {url + word}"
+            )
         response = get(url + word)
-    except:
-        raise Exception("Bad URL.")
+    except Exception as e:
+        raise Exception(f"Bad URL.\nMore data of exception: {e}")
     request_end_time = time()
     if response.status_code == 200:
         if VERBOSE:
@@ -73,11 +77,12 @@ for idx, word in enumerate(words, 1):
         if VERBOSE:
             print(f"[__main__] {word} --- NOT OK!")
         result["not_ok"].append(word)
-    
-    # Check for last item, if it's then don't call wait() function for save time
+
+    # Check for last item, if it's then don't call wait() 
+    # function for save time
     if not idx == len(words) - 1:
         wait()
-    
+
     # Timing
     end_time_with_request_and_wait = time()
     result["time_token_requests"] += request_end_time - start_time
@@ -94,7 +99,7 @@ with open(file_path + "_result", "w") as openfile:
         f"Taken addresses number: {len(result['ok'])}\n"
         f"Total address number: {len(words)}\n\n"
     )
-    
+
     if VERBOSE:
         print("[__main__] Writing addresses that have 200 status...")
     openfile.write("OK:\n\n")
@@ -102,7 +107,7 @@ with open(file_path + "_result", "w") as openfile:
         openfile.write(
             f"{word} {' ' * (MAX_WORD_LENGTH - len(word))} [{url + word}]\n"
         )
-        
+
     if VERBOSE:
         print("[__main__] Writing addresses that haven't 200 status...")
     openfile.write("\nNOT OK:\n\n")

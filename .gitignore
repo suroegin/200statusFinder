@@ -105,3 +105,6 @@ venv.bak/
 
 # eggs
 200_status_finder.egg-info/
+
+# IDE configs
+.vscode/
